@@ -1,25 +1,28 @@
-# Build the Frontend [dist folder]
-# Copy the dist folder content in Backend/public folder
-
-FROM node:20-alpine as frontend-builder
-
-COPY ./Frontend /app
+FROM node:20-alpine AS frontend-builder
 
 WORKDIR /app
-
-RUN npm install
-
+COPY Frontend/package*.json ./
+RUN npm ci
+COPY Frontend/ ./
 RUN npm run build
 
-# Build the Backend
-FROM node:20-alpine
-
-COPY ./Backend /app
+FROM node:20-alpine AS backend-builder
 
 WORKDIR /app
+RUN apk add --no-cache python3 make g++
+COPY Backend/package*.json ./
+RUN npm ci --omit=dev
+COPY Backend/ ./
 
-RUN npm install
+FROM node:20-alpine
 
-COPY --from=frontend-builder /app/dist /app/public
+WORKDIR /app
+COPY --from=backend-builder /app ./
+COPY --from=frontend-builder /app/dist ./public
+RUN mkdir -p /app/data
+
+ENV PORT=3000
+VOLUME ["/app/data"]
+EXPOSE 3000
 
 CMD ["node", "server.js"]

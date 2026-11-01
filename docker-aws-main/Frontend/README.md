@@ -1,12 +1,17 @@
-# React + Vite
+# Collab Code Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A real-time collaborative code editor where multiple users can edit the same file simultaneously. Changes sync instantly across all connected users, with conflict-free merging powered by Yjs (CRDT).
 
-Currently, two official plugins are available:
+## Features
+- Real-time multi-user editing with Monaco Editor (the VS Code editor)
+- Conflict-free sync using Yjs and WebSockets (Socket.io)
+- Live remote cursors with user colors and name badges
+- Online users list
+- Dockerized with a multi-stage build
+- Deployed on AWS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+React, Vite, Tailwind CSS, Monaco Editor, Yjs, Node.js, Express, Socket.io, Docker, AWS
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Credits
+Based on a tutorial by Ankur (github.com/ankurdotio/docker-aws), extended with my own features.
